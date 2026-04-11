@@ -177,7 +177,7 @@ const AdminOrders: React.FC = () => {
                           <select
                             value={order.status}
                             onChange={e => updateStatus(order.id, e.target.value)}
-                            className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 text-xs text-white/50 focus:outline-none cursor-pointer"
+                            className="rounded-xl border border-white/[0.06] bg-[#1a1a2e] px-3 py-2.5 text-xs text-white/70 focus:outline-none cursor-pointer [&>option]:bg-[#1a1a2e] [&>option]:text-white/70"
                           >
                             <option value="new">Новая</option>
                             <option value="in_progress">В работе</option>
