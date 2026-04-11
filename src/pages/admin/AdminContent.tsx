@@ -12,7 +12,7 @@ const defaultContent: ContentData = {
   heroSubtitle: 'Создаю уникальные песни, тексты и музыкальные проекты с помощью нейросетей.',
   aboutText: 'Я — Анастасия Мельникова, AI-музыкант и автор песен. Мой творческий псевдоним — MELANØ.',
   ctaText: 'Готовы создать свою уникальную песню? Оставьте заявку.',
-  contactEmail: 'hello@melano.music', contactTelegram: '@melano_music',
+  contactEmail: 'info.melanomusic@gmail.com', contactTelegram: '@melano_sounds',
   socialVk: '', socialYoutube: '', socialTelegram: '',
 };
 
