@@ -138,8 +138,8 @@ export const Footer: React.FC = () => (
         <div>
           <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-foreground">Контакты</h4>
           <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-            <span>melano@example.com</span>
-            <span>Telegram: @melano_music</span>
+            <span>info.melanomusic@gmail.com</span>
+            <span>Telegram: @melano_sounds</span>
           </div>
           <div className="mt-4 flex gap-3">
             <a href="#" className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:border-primary hover:text-primary" aria-label="Telegram">
@@ -150,7 +150,7 @@ export const Footer: React.FC = () => (
       </div>
 
       <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/30 pt-8 md:flex-row">
-        <p className="text-xs text-muted-foreground">© 2025 MELANØ. Все права защищены.</p>
+        <p className="text-xs text-muted-foreground">© 2026 NeuroEra by Anastasia Melnikova</p>
         <div className="flex gap-4">
           <Link to="/privacy" className="text-xs text-muted-foreground transition-colors hover:text-primary">Политика конфиденциальности</Link>
           <Link to="/offer" className="text-xs text-muted-foreground transition-colors hover:text-primary">Публичная оферта</Link>
