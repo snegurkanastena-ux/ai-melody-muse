@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Mail, MessageSquare, CheckCircle } from 'lucide-react';
+import { Send, Mail, MessageSquare, CheckCircle, Music } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -24,20 +24,24 @@ const Contact: React.FC = () => {
 
         <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
           <div className="space-y-6">
-            <div className="rounded-2xl border border-border/30 bg-card/50 p-6">
+            <a href="mailto:info.melanomusic@gmail.com" className="block rounded-2xl border border-border/30 bg-card/50 p-6 transition-colors hover:border-primary/40">
               <Mail className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Email</h3>
-              <p className="mt-1 text-sm text-muted-foreground">melano@example.com</p>
-            </div>
-            <div className="rounded-2xl border border-border/30 bg-card/50 p-6">
+              <p className="mt-1 text-sm text-muted-foreground">info.melanomusic@gmail.com</p>
+            </a>
+            <a href="https://t.me/melano_sounds" target="_blank" rel="noopener noreferrer" className="block rounded-2xl border border-border/30 bg-card/50 p-6 transition-colors hover:border-primary/40">
               <Send className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Telegram</h3>
-              <p className="mt-1 text-sm text-muted-foreground">@melano_music</p>
-            </div>
+              <p className="mt-1 text-sm text-muted-foreground">@melano_sounds</p>
+            </a>
             <div className="rounded-2xl border border-border/30 bg-card/50 p-6">
-              <MessageSquare className="mb-3 h-6 w-6 text-primary" />
+              <Music className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Музыкальные платформы</h3>
-              <p className="mt-1 text-sm text-muted-foreground">Скоро появятся ссылки на стриминговые площадки</p>
+              <div className="mt-3 flex flex-col gap-2">
+                <a href="https://music.apple.com/us/artist/%D0%B0%D0%BD%D0%B0%D1%81%D1%82%D0%B0%D1%81%D0%B8%D1%8F-%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0/1509718473?l=ru" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">Apple Music →</a>
+                <a href="https://vk.ru/artist/anastasiamelnikova_mtu4ode1mjiyoa" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">VK Музыка →</a>
+                <a href="https://music.yandex.ru/artist/9096774?ref_id=68155A05-5966-4C17-8D89-A956114AE282&utm_medium=copy_link" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">Яндекс Музыка →</a>
+              </div>
             </div>
           </div>
 
