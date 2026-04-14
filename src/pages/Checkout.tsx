@@ -7,14 +7,46 @@ const Checkout: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', comment: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const order = { ...form, items: items.map(i => ({ title: i.product.title, qty: i.quantity, price: i.product.price })), total: totalPrice, date: new Date().toISOString() };
-    const orders = JSON.parse(localStorage.getItem('melano_orders') || '[]');
-    orders.push({ ...order, id: Date.now().toString(), status: 'new' });
-    localStorage.setItem('melano_orders', JSON.stringify(orders));
-    clearCart();
-    setSubmitted(true);
+    const { name, phone, email, comment } = form;
+    const message = [
+      `Email: ${email}`,
+      comment && `Комментарий: ${comment}`,
+      items.length > 0 &&
+        `Заказ:\n${items
+          .map(
+            (i) =>
+              `${i.product.title} × ${i.quantity} — ${(i.product.price * i.quantity).toLocaleString("ru-RU")} ₽`,
+          )
+          .join("\n")}\nИтого: ${totalPrice.toLocaleString("ru-RU")} ₽`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+
+    try {
+      const res = await fetch("/api/send-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          message,
+        }),
+      });
+
+      if (!res.ok) {
+        console.error("send-order failed", await res.text());
+        return;
+      }
+
+      clearCart();
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (submitted) {

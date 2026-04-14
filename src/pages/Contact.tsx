@@ -5,12 +5,34 @@ const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const msgs = JSON.parse(localStorage.getItem('melano_messages') || '[]');
-    msgs.push({ ...form, date: new Date().toISOString(), id: Date.now().toString() });
-    localStorage.setItem('melano_messages', JSON.stringify(msgs));
-    setSubmitted(true);
+    const { name, email, message: text } = form;
+    const phone = "";
+    const message = `Email: ${email}\n\n${text}`;
+
+    try {
+      const res = await fetch("/api/send-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          message,
+        }),
+      });
+
+      if (!res.ok) {
+        console.error("send-order failed", await res.text());
+        return;
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
