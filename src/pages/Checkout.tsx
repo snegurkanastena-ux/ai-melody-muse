@@ -5,10 +5,12 @@ import { Send, CheckCircle } from 'lucide-react';
 const Checkout: React.FC = () => {
   const { items, totalPrice, clearCart } = useCart();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', comment: '' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const { name, phone, email, comment } = form;
     const message = [
       `Email: ${email}`,
@@ -39,13 +41,16 @@ const Checkout: React.FC = () => {
 
       if (!res.ok) {
         console.error("send-order failed", await res.text());
+        setLoading(false);
         return;
       }
 
       clearCart();
       setSubmitted(true);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -55,7 +60,7 @@ const Checkout: React.FC = () => {
         <div className="text-center">
           <CheckCircle className="mx-auto mb-4 h-16 w-16 text-primary" />
           <h1 className="font-display text-3xl font-bold">Заявка отправлена!</h1>
-          <p className="mt-3 text-muted-foreground">Спасибо! Я свяжусь с вами в ближайшее время для обсуждения деталей.</p>
+          <p className="mt-3 text-muted-foreground">Мы получили вашу заявку. Проверьте почту — отправили подтверждение.</p>
         </div>
       </section>
     );
@@ -105,8 +110,12 @@ const Checkout: React.FC = () => {
               <label className="mb-2 block text-sm font-medium">Комментарий и пожелания</label>
               <textarea rows={4} value={form.comment} onChange={e => setForm(f => ({ ...f, comment: e.target.value }))} className="w-full rounded-xl border border-border/50 bg-card/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none" placeholder="Расскажите о вашей идее, событии, настроении..." />
             </div>
-            <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 font-medium text-primary-foreground transition-all hover:box-glow">
-              <Send className="h-4 w-4" /> Отправить заявку
+            <button
+              type="submit"
+              disabled={loading}
+              className={`flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 font-medium text-primary-foreground transition-all disabled:cursor-not-allowed disabled:opacity-60 ${loading ? "" : "hover:box-glow"}`}
+            >
+              <Send className="h-4 w-4" /> {loading ? "Отправка..." : "Отправить заявку"}
             </button>
           </form>
         </div>
