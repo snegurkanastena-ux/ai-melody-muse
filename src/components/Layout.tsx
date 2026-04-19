@@ -153,9 +153,10 @@ export const Footer: React.FC = () => (
 
       <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/30 pt-8 md:flex-row">
         <p className="text-xs text-muted-foreground">© 2026 NeuroEra by Anastasia Melnikova</p>
-        <div className="flex gap-4">
-          <Link to="/privacy" className="text-xs text-muted-foreground transition-colors hover:text-primary">Политика конфиденциальности</Link>
-          <Link to="/offer" className="text-xs text-muted-foreground transition-colors hover:text-primary">Публичная оферта</Link>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link to="/checkout" className="text-xs text-muted-foreground transition-colors hover:text-primary">Оплата</Link>
+          <Link to="/offer" className="text-xs text-muted-foreground transition-colors hover:text-primary">Оферта</Link>
+          <Link to="/contact" className="text-xs text-muted-foreground transition-colors hover:text-primary">Контакты</Link>
         </div>
       </div>
     </div>

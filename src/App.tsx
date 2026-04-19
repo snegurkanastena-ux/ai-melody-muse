@@ -13,7 +13,6 @@ import Services from "./pages/Services";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
-import Privacy from "./pages/Privacy";
 import Offer from "./pages/Offer";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
@@ -37,7 +36,6 @@ const App = () => (
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/privacy" element={<Privacy />} />
               <Route path="/offer" element={<Offer />} />
               <Route path="/admin/*" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
