@@ -10,6 +10,8 @@ export interface Product {
   category: ProductCategory;
   mood: ProductMood;
   coverGradient: string;
+  /** Обложка (релизы, услуги с визуалом) */
+  coverImage?: string;
   includes: string[];
   timeline: string;
   format: string;
@@ -45,6 +47,8 @@ export const products: Product[] = [
     category: 'custom',
     mood: 'romantic',
     coverGradient: 'from-rose/20 to-burgundy/30',
+    coverImage:
+      'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=900&q=80&auto=format&fit=crop',
     includes: ['Текст песни', 'Музыка и аранжировка', 'AI-вокал', 'Мастеринг', '2 правки'],
     timeline: '5–7 дней',
     format: 'MP3 + WAV + текст',
@@ -112,6 +116,28 @@ export const products: Product[] = [
     type: 'service',
   },
   {
+    id: 'artist-concept',
+    title: 'Разработка музыкального концепта для артиста',
+    description:
+      'Позиционирование, звучание и визуальный образ — единая стратегия для вашего артистического проекта.',
+    fullDescription:
+      'Соберу для вас цельную музыкальную концепцию: ниша и аудитория, референсы и отличия, тон коммуникации, направление звучания и логика релизов. Подходит артистам на старте и тем, кто меняет стиль или выходит на новый уровень. Результат — структурированная презентация и дорожная карта, с которой удобно работать с продюсером и командой.',
+    price: 25000,
+    category: 'custom',
+    mood: 'inspiring',
+    coverGradient: 'from-plum/25 to-primary/30',
+    includes: [
+      'Аудит референсов и конкурентного поля',
+      'Музыкальная и образная концепция',
+      'Рекомендации по релизам и контенту',
+      '2 созвона для уточнения задач',
+    ],
+    timeline: '10–14 дней',
+    format: 'Презентация + поясняющий документ',
+    targetAudience: 'Для артистов, проектов и лейблов, которым нужна ясная творческая стратегия.',
+    type: 'service',
+  },
+  {
     id: 'rock-ballad-01',
     title: '«Огни большого города»',
     description: 'Рок-баллада о дороге, мечтах и огнях ночного города.',
@@ -125,6 +151,8 @@ export const products: Product[] = [
     format: 'MP3',
     targetAudience: 'Для ценителей рок-музыки и атмосферных баллад.',
     type: 'song',
+    coverImage:
+      'https://images.unsplash.com/photo-1498038432885-c6f3b84b8430?w=900&q=80&auto=format&fit=crop',
   },
   {
     id: 'romantic-01',
@@ -140,6 +168,8 @@ export const products: Product[] = [
     format: 'MP3',
     targetAudience: 'Для романтиков и любителей лирической музыки.',
     type: 'song',
+    coverImage:
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=900&q=80&auto=format&fit=crop',
   },
   {
     id: 'dedication-01',
@@ -155,5 +185,7 @@ export const products: Product[] = [
     format: 'MP3',
     targetAudience: 'Для тех, кто хочет подарить песню.',
     type: 'song',
+    coverImage:
+      'https://images.unsplash.com/photo-1520454974749-611b7247ffed?w=900&q=80&auto=format&fit=crop',
   },
 ];

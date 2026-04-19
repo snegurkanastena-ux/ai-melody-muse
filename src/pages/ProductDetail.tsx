@@ -4,7 +4,9 @@ import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 import { motion } from 'framer-motion';
 import { Music, ShoppingCart, Send, Clock, FileText, Users, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { products, moodLabels, categoryLabels } from '@/data/products';
+import { resolveProductCoverSrc } from '@/data/serviceCoverImages';
 import { useCart } from '@/contexts/CartContext';
+import { CoverImageWithFallback } from '@/components/CoverImageWithFallback';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,26 +20,44 @@ const ProductDetail: React.FC = () => {
         <div className="text-center">
           <p className="text-muted-foreground">Товар не найден</p>
           <Link to="/catalog" className="mt-4 inline-flex items-center gap-2 text-sm text-primary">
-            <ArrowLeft className="h-4 w-4" /> Вернуться в каталог
+            <ArrowLeft className="h-4 w-4" /> В каталог
           </Link>
         </div>
       </div>
     );
   }
 
-  const similar = products.filter(p => p.id !== product.id && (p.category === product.category || p.mood === product.mood)).slice(0, 3);
+  const sameTypeOthers = products.filter(p => p.id !== product.id && p.type === product.type);
+  const similarRanked = sameTypeOthers.filter(
+    p => p.category === product.category || p.mood === product.mood,
+  );
+  const similar = (similarRanked.length > 0 ? similarRanked : sameTypeOthers).slice(0, 3);
+
+  const coverSrc = resolveProductCoverSrc(product.id, product.coverImage);
 
   return (
     <section className="py-24">
       <div className="container">
         <Link to="/catalog" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">
-          <ArrowLeft className="h-4 w-4" /> Каталог
+          <ArrowLeft className="h-4 w-4" /> Мои песни
         </Link>
 
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Cover */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className={`flex aspect-square items-center justify-center rounded-3xl bg-gradient-to-br ${product.coverGradient} border border-border/30`}>
-            <Music className="h-24 w-24 text-primary/30" />
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="relative aspect-square overflow-hidden rounded-3xl border border-border/30"
+          >
+            <div className="absolute inset-0">
+              <CoverImageWithFallback
+                src={coverSrc}
+                gradientClass={product.coverGradient}
+                imgClassName="h-full w-full object-cover"
+              >
+                <Music className="h-24 w-24 text-primary/30" />
+              </CoverImageWithFallback>
+            </div>
           </motion.div>
 
           {/* Info */}
@@ -122,8 +142,14 @@ const ProductDetail: React.FC = () => {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {similar.map(p => (
                 <Link key={p.id} to={`/product/${p.id}`} className="interactive-card group overflow-hidden" onClick={musicBurst}>
-                  <div className={`h-36 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
-                    <Music className="h-8 w-8 text-primary/30" />
+                  <div className="relative h-36 overflow-hidden">
+                    <CoverImageWithFallback
+                      src={resolveProductCoverSrc(p.id, p.coverImage)}
+                      gradientClass={p.coverGradient}
+                      imgClassName="h-full w-full object-cover"
+                    >
+                      <Music className="h-8 w-8 text-primary/30" />
+                    </CoverImageWithFallback>
                   </div>
                   <div className="p-5">
                     <h3 className="font-display font-semibold">{p.title}</h3>
