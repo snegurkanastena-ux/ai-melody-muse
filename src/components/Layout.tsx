@@ -139,7 +139,9 @@ export const Footer: React.FC = () => (
           <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-foreground">Контакты</h4>
           <div className="flex flex-col gap-2 text-sm text-muted-foreground">
             <span>info.melanomusic@gmail.com</span>
-            <span>Telegram: @melano_sounds</span>
+            <a href="https://t.me/melano_sounds" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">
+  Telegram: @melano_sounds
+</a>
           </div>
           <div className="mt-4 flex gap-3">
             <a href="#" className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:border-primary hover:text-primary" aria-label="Telegram">
