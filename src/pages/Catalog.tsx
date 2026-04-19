@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Music, Filter } from 'lucide-react';
 import { products, categoryLabels, moodLabels, type ProductCategory, type ProductMood } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
+import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -12,6 +13,7 @@ const fadeUp = {
 
 const Catalog: React.FC = () => {
   const { addItem } = useCart();
+  const musicBurst = useMusicNoteBurst();
   const [categoryFilter, setCategoryFilter] = useState<ProductCategory | 'all'>('all');
   const [moodFilter, setMoodFilter] = useState<ProductMood | 'all'>('all');
 
@@ -64,6 +66,7 @@ const Catalog: React.FC = () => {
               variants={fadeUp}
               custom={i}
               className="group interactive-card relative overflow-hidden"
+              onClick={musicBurst}
             >
               <div className={`h-44 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
                 <Music className="h-10 w-10 text-primary/40 transition-opacity group-hover:opacity-90" />

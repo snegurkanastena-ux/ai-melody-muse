@@ -116,6 +116,48 @@
   a.interactive-pill:focus-visible {
     @apply outline-none ring-2 ring-primary/35 ring-offset-2 ring-offset-background;
   }
+
+  /** Частицы нот при клике (только десктоп, без reduced-motion — см. хук useMusicNoteBurst) */
+  .music-note-burst-particle {
+    position: fixed;
+    z-index: 10000;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    font-size: 22px;
+    line-height: 1;
+    color: hsl(var(--primary));
+    text-shadow:
+      0 0 10px hsl(340 60% 55% / 0.6),
+      0 0 26px hsl(340 60% 55% / 0.28);
+    transform: translate(-50%, -50%) rotate(var(--rot0, 0deg));
+    animation-name: music-note-burst-fly;
+    animation-duration: 1150ms;
+    animation-timing-function: cubic-bezier(0.22, 0.68, 0.35, 1);
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes music-note-burst-fly {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(var(--rot0, 0deg)) scale(1);
+    }
+    55% {
+      opacity: 0.88;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot1, 0deg)) scale(0.42);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music-note-burst-particle {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      opacity: 0 !important;
+    }
+  }
 }
 
 @layer utilities {

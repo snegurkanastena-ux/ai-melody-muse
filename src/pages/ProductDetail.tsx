@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 import { motion } from 'framer-motion';
 import { Music, ShoppingCart, Send, Clock, FileText, Users, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { products, moodLabels, categoryLabels } from '@/data/products';
@@ -8,6 +9,7 @@ import { useCart } from '@/contexts/CartContext';
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { addItem } = useCart();
+  const musicBurst = useMusicNoteBurst();
   const product = products.find(p => p.id === id);
 
   if (!product) {
@@ -119,7 +121,7 @@ const ProductDetail: React.FC = () => {
             <h2 className="mb-8 font-display text-2xl font-bold">Похожие</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {similar.map(p => (
-                <Link key={p.id} to={`/product/${p.id}`} className="interactive-card group overflow-hidden">
+                <Link key={p.id} to={`/product/${p.id}`} className="interactive-card group overflow-hidden" onClick={musicBurst}>
                   <div className={`h-36 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
                     <Music className="h-8 w-8 text-primary/30" />
                   </div>

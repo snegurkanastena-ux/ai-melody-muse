@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Sparkles, Music, Mic, Star, Palette } from 'lucide-react';
+import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -39,7 +40,10 @@ const musicPlatforms = [
   },
 ] as const;
 
-const About: React.FC = () => (
+const About: React.FC = () => {
+  const musicBurst = useMusicNoteBurst();
+
+  return (
   <>
     <section className="py-24">
       <div className="container">
@@ -66,6 +70,7 @@ const About: React.FC = () => (
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={musicBurst}
                 className="interactive-pill inline-flex min-h-[48px] min-w-[min(100%,11rem)] flex-1 basis-[calc(50%-0.375rem)] items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-foreground sm:min-w-[10.5rem] sm:flex-initial md:basis-auto"
               >
                 {icon}
@@ -136,6 +141,7 @@ const About: React.FC = () => (
       </div>
     </section>
   </>
-);
+  );
+};
 
 export default About;

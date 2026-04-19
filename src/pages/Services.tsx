@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Music, FileText, Mic, Sparkles, Radio, Palette, ArrowRight } from 'lucide-react';
+import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -17,7 +18,10 @@ const services = [
   { icon: Palette, title: 'Авторский digital-продукт', desc: 'Уникальный цифровой музыкальный продукт по вашему запросу.', price: 'Индивидуально', link: '/contact' },
 ];
 
-const Services: React.FC = () => (
+const Services: React.FC = () => {
+  const musicBurst = useMusicNoteBurst();
+
+  return (
   <section className="py-24">
     <div className="container">
       <div className="mb-16 text-center">
@@ -36,6 +40,7 @@ const Services: React.FC = () => (
             variants={fadeUp}
             custom={i}
             className="group interactive-card flex flex-col p-8"
+            onClick={musicBurst}
           >
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
               <s.icon className="h-5 w-5" />
@@ -54,6 +59,7 @@ const Services: React.FC = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default Services;

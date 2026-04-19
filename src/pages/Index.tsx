@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Music, Sparkles, Heart, Mic, Star, ArrowRight, CheckCircle2, Quote } from 'lucide-react';
 import { products } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
+import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const fadeUp = {
@@ -13,6 +14,7 @@ const fadeUp = {
 
 const Index: React.FC = () => {
   const { addItem } = useCart();
+  const musicBurst = useMusicNoteBurst();
   const featured = products.slice(0, 6);
 
   return (
@@ -159,6 +161,7 @@ const Index: React.FC = () => {
                 variants={fadeUp}
                 custom={i}
                 className="group interactive-card relative overflow-hidden"
+                onClick={musicBurst}
               >
                 <div className={`h-48 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
                   <Music className="h-12 w-12 text-primary/40 transition-opacity group-hover:opacity-90" />
