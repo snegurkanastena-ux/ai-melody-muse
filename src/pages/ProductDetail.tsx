@@ -57,21 +57,21 @@ const ProductDetail: React.FC = () => {
             <p className="mt-4 leading-relaxed text-muted-foreground">{product.fullDescription}</p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              <div className="flex items-start gap-3 rounded-xl border border-border/30 bg-card/50 p-4">
+              <div className="interactive-card flex items-start gap-3 !rounded-xl p-4">
                 <Clock className="mt-0.5 h-5 w-5 text-primary/60" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Сроки</p>
                   <p className="mt-1 text-sm">{product.timeline}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 rounded-xl border border-border/30 bg-card/50 p-4">
+              <div className="interactive-card flex items-start gap-3 !rounded-xl p-4">
                 <FileText className="mt-0.5 h-5 w-5 text-primary/60" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Формат</p>
                   <p className="mt-1 text-sm">{product.format}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 rounded-xl border border-border/30 bg-card/50 p-4">
+              <div className="interactive-card flex items-start gap-3 !rounded-xl p-4">
                 <Users className="mt-0.5 h-5 w-5 text-primary/60" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Настроение</p>
@@ -91,7 +91,7 @@ const ProductDetail: React.FC = () => {
               </ul>
             </div>
 
-            <div className="mt-6 rounded-xl border border-border/30 bg-card/50 p-4">
+            <div className="interactive-card mt-6 !rounded-xl p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Кому подходит</p>
               <p className="mt-2 text-sm leading-relaxed text-secondary-foreground">{product.targetAudience}</p>
             </div>
@@ -119,7 +119,7 @@ const ProductDetail: React.FC = () => {
             <h2 className="mb-8 font-display text-2xl font-bold">Похожие</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {similar.map(p => (
-                <Link key={p.id} to={`/product/${p.id}`} className="group overflow-hidden rounded-2xl border border-border/30 bg-card/50 transition-all hover:border-primary/30">
+                <Link key={p.id} to={`/product/${p.id}`} className="interactive-card group overflow-hidden">
                   <div className={`h-36 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
                     <Music className="h-8 w-8 text-primary/30" />
                   </div>

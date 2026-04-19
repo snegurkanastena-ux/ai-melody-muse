@@ -32,7 +32,7 @@ const Cart: React.FC = () => {
         <div className="mt-8 grid gap-8 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
             {items.map(item => (
-              <div key={item.product.id} className="flex items-center gap-4 rounded-2xl border border-border/30 bg-card/50 p-4 md:p-6">
+              <div key={item.product.id} className="interactive-card flex items-center gap-4 p-4 md:p-6">
                 <div className={`hidden h-20 w-20 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.product.coverGradient} sm:flex`}>
                   <ShoppingCart className="h-6 w-6 text-primary/30" />
                 </div>
@@ -57,7 +57,7 @@ const Cart: React.FC = () => {
             ))}
           </div>
 
-          <div className="rounded-2xl border border-border/30 bg-card/50 p-6 h-fit">
+          <div className="interactive-card p-6 h-fit">
             <h3 className="font-display text-lg font-semibold">Итого</h3>
             <div className="mt-4 space-y-2 border-b border-border/30 pb-4">
               {items.map(item => (

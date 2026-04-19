@@ -66,7 +66,7 @@ const About: React.FC = () => (
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] min-w-[min(100%,11rem)] flex-1 basis-[calc(50%-0.375rem)] items-center justify-center gap-2.5 rounded-full border border-border/40 bg-card/50 px-4 py-3 text-sm font-medium text-foreground shadow-sm transition-all hover:border-primary/45 hover:bg-card/80 hover:shadow-[0_0_28px_-10px_hsl(340_60%_55%/0.35)] sm:min-w-[10.5rem] sm:flex-initial md:basis-auto"
+                className="interactive-pill inline-flex min-h-[48px] min-w-[min(100%,11rem)] flex-1 basis-[calc(50%-0.375rem)] items-center justify-center gap-2.5 px-4 py-3 text-sm font-medium text-foreground sm:min-w-[10.5rem] sm:flex-initial md:basis-auto"
               >
                 {icon}
                 <span>{label}</span>
@@ -80,7 +80,7 @@ const About: React.FC = () => (
     <section className="border-t border-border/30 py-24">
       <div className="container">
         <div className="mx-auto max-w-3xl space-y-8">
-          <div className="rounded-2xl border border-border/30 bg-card/50 p-8 md:p-12">
+          <div className="interactive-card p-8 md:p-12">
             <h2 className="font-display text-2xl font-bold">Как всё началось</h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
               Музыка всегда была частью моей жизни. Я писала стихи с детства, мечтала о сцене и искала свой голос. Когда появились нейросети, способные создавать музыку, я поняла — это мой путь. Не замена творчества, а его усиление. AI стал моим инструментом, а я — его душой.
@@ -90,7 +90,7 @@ const About: React.FC = () => (
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border/30 bg-card/50 p-8 md:p-12">
+          <div className="interactive-card p-8 md:p-12">
             <h2 className="font-display text-2xl font-bold">Творческая концепция</h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
               MELANØ — это не просто музыка. Это атмосфера. Мой стиль — на стыке романтики и рока, нежности и силы, цифрового искусства и живой эмоции. Я верю, что AI-музыка может быть такой же пронзительной, как песня, написанная за старым фортепиано в три часа ночи.
@@ -125,7 +125,7 @@ const About: React.FC = () => (
               viewport={{ once: true }}
               variants={fadeUp}
               custom={i}
-              className="rounded-2xl border border-border/30 bg-card/50 p-6 text-center"
+              className="interactive-card p-6 text-center"
             >
               <item.icon className="mx-auto mb-3 h-8 w-8 text-primary/60" />
               <h3 className="font-display text-base font-semibold">{item.title}</h3>

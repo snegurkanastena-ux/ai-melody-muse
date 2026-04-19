@@ -75,6 +75,49 @@
   }
 }
 
+@layer components {
+  /**
+   * Единый hover для карточек: лёгкий подъём, бордер, мягкое неоновое свечение.
+   * Не использовать на полях форм, длинных legal-блоках и статичных справках.
+   */
+  .interactive-card {
+    @apply rounded-2xl border border-border/30 bg-card/50;
+    @apply transition-[transform,box-shadow,border-color,background-color] duration-300 ease-out;
+  }
+
+  .interactive-card:hover {
+    @apply -translate-y-[3px] border-primary/45 bg-card/80;
+    box-shadow:
+      0 14px 44px -18px hsl(340 60% 55% / 0.22),
+      0 0 0 1px hsl(340 45% 55% / 0.08);
+  }
+
+  a.interactive-card {
+    @apply cursor-pointer;
+  }
+
+  a.interactive-card:focus-visible {
+    @apply outline-none ring-2 ring-primary/35 ring-offset-2 ring-offset-background;
+  }
+
+  /** Кнопки-ссылки с полным скруглением (платформы и т.п.) */
+  .interactive-pill {
+    @apply rounded-full border border-border/40 bg-card/50 shadow-sm;
+    @apply transition-[transform,box-shadow,border-color,background-color] duration-300 ease-out;
+  }
+
+  .interactive-pill:hover {
+    @apply -translate-y-[3px] border-primary/45 bg-card/80;
+    box-shadow:
+      0 14px 44px -18px hsl(340 60% 55% / 0.22),
+      0 0 0 1px hsl(340 45% 55% / 0.08);
+  }
+
+  a.interactive-pill:focus-visible {
+    @apply outline-none ring-2 ring-primary/35 ring-offset-2 ring-offset-background;
+  }
+}
+
 @layer utilities {
   .text-glow {
     text-shadow: var(--glow-rose);

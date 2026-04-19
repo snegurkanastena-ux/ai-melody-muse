@@ -93,7 +93,7 @@ const Index: React.FC = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i}
-                className="group rounded-2xl border border-border/30 bg-card/50 p-8 transition-all hover:border-primary/30 hover:bg-card"
+                className="group interactive-card p-8"
               >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
                   <item.icon className="h-5 w-5" />
@@ -127,7 +127,7 @@ const Index: React.FC = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i}
-                className="flex items-start gap-3 rounded-xl border border-border/20 bg-card/30 p-5"
+                className="interactive-card flex items-start gap-3 !rounded-xl border-border/20 bg-card/30 p-5"
               >
                 <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                 <p className="text-sm leading-relaxed text-secondary-foreground">{text}</p>
@@ -158,10 +158,10 @@ const Index: React.FC = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i}
-                className="group relative overflow-hidden rounded-2xl border border-border/30 bg-card/50 transition-all hover:border-primary/30"
+                className="group interactive-card relative overflow-hidden"
               >
                 <div className={`h-48 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
-                  <Music className="h-12 w-12 text-primary/40 transition-transform group-hover:scale-110" />
+                  <Music className="h-12 w-12 text-primary/40 transition-opacity group-hover:opacity-90" />
                 </div>
                 <div className="p-6">
                   <div className="mb-2 flex items-center gap-2">
@@ -254,7 +254,7 @@ const Index: React.FC = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i}
-                className="rounded-2xl border border-border/30 bg-card/50 p-8"
+                className="interactive-card p-8"
               >
                 <Quote className="mb-4 h-6 w-6 text-primary/30" />
                 <p className="text-sm leading-relaxed text-secondary-foreground italic">«{t.text}»</p>

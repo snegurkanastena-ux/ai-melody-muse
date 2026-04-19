@@ -46,12 +46,12 @@ const Contact: React.FC = () => {
 
         <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
           <div className="space-y-6">
-            <a href="mailto:info.melanomusic@gmail.com" className="block rounded-2xl border border-border/30 bg-card/50 p-6 transition-colors hover:border-primary/40">
+            <a href="mailto:info.melanomusic@gmail.com" className="interactive-card block p-6">
               <Mail className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Email</h3>
               <p className="mt-1 text-sm text-muted-foreground">info.melanomusic@gmail.com</p>
             </a>
-            <a href="https://t.me/melano_sounds" target="_blank" rel="noopener noreferrer" className="block rounded-2xl border border-border/30 bg-card/50 p-6 transition-colors hover:border-primary/40">
+            <a href="https://t.me/melano_sounds" target="_blank" rel="noopener noreferrer" className="interactive-card block p-6">
               <Send className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Telegram</h3>
               <p className="mt-1 text-sm text-muted-foreground">@melano_sounds</p>

@@ -35,7 +35,7 @@ const Services: React.FC = () => (
             viewport={{ once: true }}
             variants={fadeUp}
             custom={i}
-            className="group flex flex-col rounded-2xl border border-border/30 bg-card/50 p-8 transition-all hover:border-primary/30"
+            className="group interactive-card flex flex-col p-8"
           >
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
               <s.icon className="h-5 w-5" />

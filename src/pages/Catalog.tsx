@@ -63,10 +63,10 @@ const Catalog: React.FC = () => {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={i}
-              className="group relative overflow-hidden rounded-2xl border border-border/30 bg-card/50 transition-all hover:border-primary/30"
+              className="group interactive-card relative overflow-hidden"
             >
               <div className={`h-44 bg-gradient-to-br ${p.coverGradient} flex items-center justify-center`}>
-                <Music className="h-10 w-10 text-primary/40 transition-transform group-hover:scale-110" />
+                <Music className="h-10 w-10 text-primary/40 transition-opacity group-hover:opacity-90" />
               </div>
               <div className="p-6">
                 <div className="mb-2 flex items-center gap-2">

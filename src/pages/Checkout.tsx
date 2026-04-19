@@ -69,7 +69,7 @@ const Checkout: React.FC = () => {
           <p className="mt-2 text-muted-foreground">Заполните форму, и я свяжусь с вами для обсуждения деталей</p>
 
           {items.length > 0 && (
-            <div className="mt-8 rounded-2xl border border-border/30 bg-card/50 p-6">
+            <div className="interactive-card mt-8 p-6">
               <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-muted-foreground">Ваш заказ</h3>
               <div className="mt-3 space-y-2">
                 {items.map(item => (
