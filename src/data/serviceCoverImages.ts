@@ -3,6 +3,7 @@ import musicArrangement from '@/assets/services/music-arrangement.jpg';
 import jingle from '@/assets/services/jingle.jpg';
 import aiSongFull from '@/assets/services/ai-song-full.jpg';
 import artistConcept from '@/assets/services/artist-concept.jpg';
+import consultationIdea from '@/assets/services/consultation-idea.jpg';
 
 /** Обложки для услуг на странице Services и в карточке товара (импорт из assets). */
 export const SERVICE_COVER_BY_ID: Record<string, string> = {
@@ -11,6 +12,7 @@ export const SERVICE_COVER_BY_ID: Record<string, string> = {
   jingle,
   'ai-song-full': aiSongFull,
   'artist-concept': artistConcept,
+  'consultation-idea': consultationIdea,
 };
 
 /** Резерв, если для id нет файла или не сработала загрузка */

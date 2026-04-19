@@ -12,23 +12,45 @@ const fadeUp = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.55 } }),
 };
 
-/** Порядок и заголовки карточек на странице услуг */
+/** Заголовки карточек на странице услуг (порядок отображения — по возрастанию `product.price` в `items`) */
 const SERVICES_PAGE: { id: string; cardTitle: string }[] = [
   { id: 'song-text', cardTitle: 'Текст песни' },
+  { id: 'consultation-idea', cardTitle: 'Консультация / разбор идеи' },
   { id: 'music-arrangement', cardTitle: 'Музыка и аранжировка' },
   { id: 'jingle', cardTitle: 'Джингл' },
   { id: 'ai-song-full', cardTitle: 'Песня под ключ' },
   { id: 'artist-concept', cardTitle: 'Разработка музыкального концепта для артиста' },
 ];
 
+/** При одинаковой цене: «Текст песни» раньше «Консультации», если обе 3000 ₽ */
+const SERVICES_TIE_BREAK_ORDER = [
+  'song-text',
+  'consultation-idea',
+  'music-arrangement',
+  'jingle',
+  'ai-song-full',
+  'artist-concept',
+] as const;
+
 const Services: React.FC = () => {
   const musicBurst = useMusicNoteBurst();
 
   const items = useMemo(() => {
-    return SERVICES_PAGE.map(({ id, cardTitle }) => {
+    const rows = SERVICES_PAGE.map(({ id, cardTitle }) => {
       const product = products.find(p => p.id === id);
       return product ? { product, cardTitle } : null;
     }).filter((x): x is { product: Product; cardTitle: string } => x !== null);
+
+    rows.sort((a, b) => {
+      const d = a.product.price - b.product.price;
+      if (d !== 0) return d;
+      return (
+        SERVICES_TIE_BREAK_ORDER.indexOf(a.product.id as (typeof SERVICES_TIE_BREAK_ORDER)[number]) -
+        SERVICES_TIE_BREAK_ORDER.indexOf(b.product.id as (typeof SERVICES_TIE_BREAK_ORDER)[number])
+      );
+    });
+
+    return rows;
   }, []);
 
   return (
