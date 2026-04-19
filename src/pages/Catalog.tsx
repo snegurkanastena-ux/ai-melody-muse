@@ -21,7 +21,7 @@ const fadeUp = {
 /** Компактная обложка для синглов / клиентских карточек (не на всю ширину) */
 function CatalogCompactCover({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="h-[5.25rem] w-[5.25rem] shrink-0 overflow-hidden rounded-xl bg-zinc-950 ring-1 ring-white/5 sm:h-28 sm:w-28">
+    <div className="h-[5.25rem] w-[5.25rem] shrink-0 self-start overflow-hidden rounded-xl bg-zinc-950 ring-1 ring-white/5 sm:h-28 sm:w-28">
       <img src={src} alt={alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
     </div>
   );
@@ -75,7 +75,7 @@ function CatalogInner() {
               </div>
             </div>
 
-            <div className="mt-10 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4">
+            <div className="mt-10 grid w-full grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-4">
               {catalogPreviousSingles.map((single, i) => (
                 <motion.article
                   key={single.id}
@@ -84,19 +84,19 @@ function CatalogInner() {
                   viewport={{ once: true }}
                   variants={fadeUp}
                   custom={i}
-                  className="interactive-card flex w-full flex-row items-stretch gap-3 overflow-hidden border-border/40 bg-card/40 p-3 sm:gap-4 sm:p-4"
+                  className="interactive-card flex h-full min-h-0 w-full flex-row gap-3 overflow-hidden border-border/40 bg-card/40 p-3 sm:gap-4 sm:p-4"
                   onClick={musicBurst}
                 >
                   <CatalogCompactCover src={single.coverSrc} alt={single.title} />
-                  <div className="flex min-w-0 flex-1 flex-col justify-between border-l border-border/20 pl-3 sm:pl-4">
-                    <div>
+                  <div className="flex min-h-0 min-w-0 flex-1 flex-col border-l border-border/20 pl-3 sm:pl-4">
+                    <div className="flex min-h-0 flex-1 flex-col">
                       <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Сингл</p>
-                      <h4 className="mt-0.5 font-display text-base font-bold leading-tight text-foreground md:text-lg">
+                      <h4 className="mt-0.5 line-clamp-2 font-display text-base font-bold leading-tight text-foreground md:text-lg">
                         {single.title}
                       </h4>
-                      <p className="mt-1.5 line-clamp-3 text-xs leading-snug text-muted-foreground sm:text-sm">{single.description}</p>
+                      <p className="mt-1.5 line-clamp-2 text-xs leading-snug text-muted-foreground sm:text-sm">{single.description}</p>
                     </div>
-                    <div className="mt-3 border-t border-border/20 pt-2.5">
+                    <div className="mt-auto shrink-0 border-t border-border/20 pt-2.5">
                       <CatalogPlayerBar id={single.id} audioSrc={single.audioSrc} />
                     </div>
                   </div>
@@ -111,7 +111,7 @@ function CatalogInner() {
               Примеры выполненных песен для клиентов
             </p>
 
-            <div className="mt-10 grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4">
+            <div className="mt-10 grid w-full grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-4">
               {catalogClientWorks.map((work, i) => (
                 <motion.article
                   key={work.id}
@@ -120,16 +120,16 @@ function CatalogInner() {
                   viewport={{ once: true }}
                   variants={fadeUp}
                   custom={i}
-                  className="interactive-card flex w-full flex-row items-stretch gap-3 overflow-hidden border-border/40 bg-card/40 p-3 sm:gap-4 sm:p-4"
+                  className="interactive-card flex h-full min-h-0 w-full flex-row gap-3 overflow-hidden border-border/40 bg-card/40 p-3 sm:gap-4 sm:p-4"
                   onClick={musicBurst}
                 >
                   <CatalogCompactCover src={work.coverSrc} alt={work.title} />
-                  <div className="flex min-w-0 flex-1 flex-col justify-between border-l border-border/20 pl-3 sm:pl-4">
-                    <div>
-                      <h3 className="font-display text-base font-bold leading-tight text-foreground md:text-lg">{work.title}</h3>
-                      <p className="mt-1.5 line-clamp-3 text-xs leading-snug text-muted-foreground sm:text-sm">{work.description}</p>
+                  <div className="flex min-h-0 min-w-0 flex-1 flex-col border-l border-border/20 pl-3 sm:pl-4">
+                    <div className="flex min-h-0 flex-1 flex-col">
+                      <h3 className="line-clamp-2 font-display text-base font-bold leading-tight text-foreground md:text-lg">{work.title}</h3>
+                      <p className="mt-1.5 line-clamp-2 text-xs leading-snug text-muted-foreground sm:text-sm">{work.description}</p>
                     </div>
-                    <div className="mt-3 border-t border-border/20 pt-2.5">
+                    <div className="mt-auto shrink-0 border-t border-border/20 pt-2.5">
                       <CatalogPlayerBar id={work.id} audioSrc={work.audioSrc} />
                     </div>
                   </div>
