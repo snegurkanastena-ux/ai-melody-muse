@@ -43,34 +43,32 @@ function CatalogInner() {
             className="mb-24"
             onClick={musicBurst}
           >
-            <div className="mx-auto w-full max-w-5xl">
-              <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-6">
-                <div className="min-w-0">
-                  <h1 className="font-display text-4xl font-bold tracking-[0.12em] md:text-5xl">{catalogMelanoNew.heading}</h1>
-                  <p className="mt-3 text-muted-foreground md:text-lg">{catalogMelanoNew.subtitle}</p>
+            <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-6">
+              <div className="min-w-0">
+                <h1 className="font-display text-4xl font-bold tracking-[0.12em] md:text-5xl">{catalogMelanoNew.heading}</h1>
+                <p className="mt-3 text-muted-foreground md:text-lg">{catalogMelanoNew.subtitle}</p>
 
-                  <div className="mt-5 lg:mt-6">
-                    <CatalogAlbumBlock
-                      coverSrc={catalogMelanoNew.album.coverSrc}
-                      albumTitle={catalogMelanoNew.album.title}
-                      tracks={melanoAlbumTracks}
-                      statusLabel={catalogMelanoNew.album.status}
-                    />
-                  </div>
+                <div className="mt-5 lg:mt-6">
+                  <CatalogAlbumBlock
+                    coverSrc={catalogMelanoNew.album.coverSrc}
+                    albumTitle={catalogMelanoNew.album.title}
+                    tracks={melanoAlbumTracks}
+                    statusLabel={catalogMelanoNew.album.status}
+                  />
                 </div>
+              </div>
 
-                <div className="min-w-0">
-                  <h2 className="font-display text-3xl font-bold md:text-4xl">{catalogPrevious.heading}</h2>
-                  <p className="mt-3 text-muted-foreground md:text-lg">{catalogPrevious.subtitle}</p>
+              <div className="min-w-0">
+                <h2 className="font-display text-3xl font-bold md:text-4xl">{catalogPrevious.heading}</h2>
+                <p className="mt-3 text-muted-foreground md:text-lg">{catalogPrevious.subtitle}</p>
 
-                  <div className="mt-5 lg:mt-6">
-                    <CatalogAlbumBlock
-                      coverSrc={catalogPrevious.album.coverSrc}
-                      albumTitle={catalogPrevious.album.title}
-                      tracks={vesnaAlbumTracks}
-                      albumKindLabel="Альбом"
-                    />
-                  </div>
+                <div className="mt-5 lg:mt-6">
+                  <CatalogAlbumBlock
+                    coverSrc={catalogPrevious.album.coverSrc}
+                    albumTitle={catalogPrevious.album.title}
+                    tracks={vesnaAlbumTracks}
+                    albumKindLabel="Альбом"
+                  />
                 </div>
               </div>
             </div>
