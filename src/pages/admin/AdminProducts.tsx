@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const defaultProduct: Omit<Product, 'id'> = {
   title: '', description: '', fullDescription: '', price: 0,
-  category: 'custom', mood: 'romantic', coverGradient: 'from-primary/20 to-plum/20',
+  category: 'custom', coverGradient: 'from-primary/20 to-plum/20',
   includes: [], timeline: '', format: '', targetAudience: '', type: 'service',
 };
 
@@ -41,8 +41,14 @@ const AdminProducts: React.FC = () => {
   const openEdit = (p: Product) => { setEditing({ ...p }); setIsNew(false); setIncludesText(p.includes.join('\n')); };
   const handleSave = () => {
     if (!editing) return;
-    const updated = { ...editing, includes: includesText.split('\n').filter(Boolean) };
-    save(isNew ? [...products, updated] : products.map(p => p.id === updated.id ? updated : p));
+    let updated: Product = { ...editing, includes: includesText.split('\n').filter(Boolean) };
+    if (updated.type === 'service') {
+      const { mood: _m, ...rest } = updated;
+      updated = rest as Product;
+    } else if (updated.mood == null) {
+      updated = { ...updated, mood: 'romantic' };
+    }
+    save(isNew ? [...products, updated] : products.map(p => (p.id === updated.id ? updated : p)));
     setEditing(null);
   };
   const handleDelete = (id: string) => { if (confirm('Удалить товар?')) save(products.filter(p => p.id !== id)); };
@@ -80,7 +86,7 @@ const AdminProducts: React.FC = () => {
 
           <div className="rounded-2xl border border-white/[0.05] bg-white/[0.02] p-6 space-y-5">
             <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-medium">Классификация</p>
-            <div className="grid grid-cols-3 gap-4">
+            <div className={`grid gap-4 ${editing.type === 'song' ? 'grid-cols-3' : 'grid-cols-2'}`}>
               <div>
                 <label className="block text-[10px] text-white/30 uppercase tracking-[0.2em] mb-2">Категория</label>
                 <select value={editing.category} onChange={e => setEditing({ ...editing, category: e.target.value as ProductCategory })}
@@ -88,17 +94,39 @@ const AdminProducts: React.FC = () => {
                   {Object.entries(categoryLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
                 </select>
               </div>
-              <div>
-                <label className="block text-[10px] text-white/30 uppercase tracking-[0.2em] mb-2">Настроение</label>
-                <select value={editing.mood} onChange={e => setEditing({ ...editing, mood: e.target.value as ProductMood })}
-                  className="w-full rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 text-sm text-white/60 focus:outline-none cursor-pointer">
-                  {Object.entries(moodLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-                </select>
-              </div>
+              {editing.type === 'song' && (
+                <div>
+                  <label className="block text-[10px] text-white/30 uppercase tracking-[0.2em] mb-2">Настроение</label>
+                  <select
+                    value={editing.mood ?? 'romantic'}
+                    onChange={e => setEditing({ ...editing, mood: e.target.value as ProductMood })}
+                    className="w-full rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 text-sm text-white/60 focus:outline-none cursor-pointer"
+                  >
+                    {Object.entries(moodLabels).map(([k, v]) => (
+                      <option key={k} value={k}>
+                        {v}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                 <label className="block text-[10px] text-white/30 uppercase tracking-[0.2em] mb-2">Тип</label>
-                <select value={editing.type} onChange={e => setEditing({ ...editing, type: e.target.value as 'song' | 'service' })}
-                  className="w-full rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 text-sm text-white/60 focus:outline-none cursor-pointer">
+                <select
+                  value={editing.type}
+                  onChange={e => {
+                    const t = e.target.value as 'song' | 'service';
+                    setEditing(prev => {
+                      if (!prev) return prev;
+                      if (t === 'service') {
+                        const { mood: _m, ...rest } = prev;
+                        return { ...rest, type: t };
+                      }
+                      return { ...prev, type: t, mood: prev.mood ?? 'romantic' };
+                    });
+                  }}
+                  className="w-full rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 text-sm text-white/60 focus:outline-none cursor-pointer"
+                >
                   <option value="service">Услуга</option>
                   <option value="song">Песня</option>
                 </select>

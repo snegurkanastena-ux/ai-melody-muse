@@ -7,6 +7,7 @@ import { products, moodLabels, categoryLabels } from '@/data/products';
 import { resolveProductCoverSrc } from '@/data/serviceCoverImages';
 import { useCart } from '@/contexts/CartContext';
 import { CoverImageWithFallback } from '@/components/CoverImageWithFallback';
+import { cn } from '@/lib/utils';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,18 +29,24 @@ const ProductDetail: React.FC = () => {
   }
 
   const sameTypeOthers = products.filter(p => p.id !== product.id && p.type === product.type);
-  const similarRanked = sameTypeOthers.filter(
-    p => p.category === product.category || p.mood === product.mood,
-  );
+  const similarRanked = sameTypeOthers.filter(p => {
+    if (product.type === 'song') {
+      return p.category === product.category || (product.mood != null && p.mood === product.mood);
+    }
+    return p.category === product.category;
+  });
   const similar = (similarRanked.length > 0 ? similarRanked : sameTypeOthers).slice(0, 3);
+
+  const backTo = product.type === 'service' ? '/services' : '/catalog';
+  const backLabel = product.type === 'service' ? 'Услуги' : 'Мои песни';
 
   const coverSrc = resolveProductCoverSrc(product.id, product.coverImage);
 
   return (
     <section className="py-24">
       <div className="container">
-        <Link to="/catalog" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">
-          <ArrowLeft className="h-4 w-4" /> Мои песни
+        <Link to={backTo} className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">
+          <ArrowLeft className="h-4 w-4" /> {backLabel}
         </Link>
 
         <div className="grid gap-12 lg:grid-cols-2">
@@ -69,16 +76,23 @@ const ProductDetail: React.FC = () => {
               <span className="rounded-full border border-border/50 px-3 py-1 text-xs font-medium text-muted-foreground">
                 {categoryLabels[product.category]}
               </span>
-              <span className="rounded-full border border-border/50 px-3 py-1 text-xs font-medium text-muted-foreground">
-                {moodLabels[product.mood]}
-              </span>
+              {product.mood != null && (
+                <span className="rounded-full border border-border/50 px-3 py-1 text-xs font-medium text-muted-foreground">
+                  {moodLabels[product.mood]}
+                </span>
+              )}
             </div>
 
             <h1 className="mt-4 font-display text-3xl font-bold md:text-4xl">{product.title}</h1>
             <p className="mt-4 text-lg font-display font-bold text-primary">{product.price.toLocaleString('ru-RU')} ₽</p>
             <p className="mt-4 leading-relaxed text-muted-foreground">{product.fullDescription}</p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div
+              className={cn(
+                'mt-8 grid gap-4',
+                product.mood != null ? 'sm:grid-cols-3' : 'sm:grid-cols-2',
+              )}
+            >
               <div className="interactive-card flex items-start gap-3 !rounded-xl p-4">
                 <Clock className="mt-0.5 h-5 w-5 text-primary/60" />
                 <div>
@@ -93,13 +107,15 @@ const ProductDetail: React.FC = () => {
                   <p className="mt-1 text-sm">{product.format}</p>
                 </div>
               </div>
-              <div className="interactive-card flex items-start gap-3 !rounded-xl p-4">
-                <Users className="mt-0.5 h-5 w-5 text-primary/60" />
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Настроение</p>
-                  <p className="mt-1 text-sm">{moodLabels[product.mood]}</p>
+              {product.mood != null && (
+                <div className="interactive-card flex items-start gap-3 !rounded-xl p-4">
+                  <Users className="mt-0.5 h-5 w-5 text-primary/60" />
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Настроение</p>
+                    <p className="mt-1 text-sm">{moodLabels[product.mood]}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="mt-8">

@@ -23,7 +23,7 @@ const Catalog: React.FC = () => {
   }, [songs]);
 
   const moodsInSongs = useMemo(() => {
-    const s = new Set(songs.map(p => p.mood));
+    const s = new Set(songs.map(p => p.mood).filter((m): m is ProductMood => m != null));
     return (Array.from(s) as ProductMood[]).sort();
   }, [songs]);
 
@@ -119,9 +119,11 @@ const Catalog: React.FC = () => {
                   <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                     Песня
                   </span>
-                  <span className="rounded-full border border-border/50 px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                    {moodLabels[p.mood]}
-                  </span>
+                  {p.mood != null && (
+                    <span className="rounded-full border border-border/50 px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                      {moodLabels[p.mood]}
+                    </span>
+                  )}
                 </div>
                 <h3 className="font-display text-lg font-semibold">{p.title}</h3>
                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground line-clamp-2">{p.description}</p>
