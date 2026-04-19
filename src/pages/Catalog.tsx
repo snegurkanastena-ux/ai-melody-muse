@@ -1,167 +1,154 @@
-import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Music, Filter } from 'lucide-react';
-import { products, categoryLabels, moodLabels, type ProductCategory, type ProductMood } from '@/data/products';
-import { useCart } from '@/contexts/CartContext';
 import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
+import {
+  catalogMelanoNew,
+  catalogPrevious,
+  catalogPreviousSingles,
+  catalogClientWorks,
+} from '@/data/catalogMusic';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.05, duration: 0.5 } }),
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06, duration: 0.5 } }),
 };
 
+/** Синглы и клиентские работы — прежняя логика высоты и cover */
+const coverFrameClass = 'relative h-64 w-full shrink-0 overflow-hidden sm:h-72 md:h-80';
+
+function CatalogCover({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className={coverFrameClass}>
+      <img src={src} alt={alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+    </div>
+  );
+}
+
+/** Альбомы: квадрат 1:1, без грубого кропа, тёмный фон под letterbox */
+function AlbumCoverSquare({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="aspect-square w-full bg-zinc-950/90">
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-contain p-3 sm:p-4"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+}
+
 const Catalog: React.FC = () => {
-  const { addItem } = useCart();
   const musicBurst = useMusicNoteBurst();
-
-  const songs = useMemo(() => products.filter(p => p.type === 'song'), []);
-
-  const categoriesInSongs = useMemo(() => {
-    const s = new Set(songs.map(p => p.category));
-    return (Array.from(s) as ProductCategory[]).sort();
-  }, [songs]);
-
-  const moodsInSongs = useMemo(() => {
-    const s = new Set(songs.map(p => p.mood).filter((m): m is ProductMood => m != null));
-    return (Array.from(s) as ProductMood[]).sort();
-  }, [songs]);
-
-  const [categoryFilter, setCategoryFilter] = useState<ProductCategory | 'all'>('all');
-  const [moodFilter, setMoodFilter] = useState<ProductMood | 'all'>('all');
-
-  const filtered = useMemo(() => {
-    return songs.filter(p => {
-      if (categoryFilter !== 'all' && p.category !== categoryFilter) return false;
-      if (moodFilter !== 'all' && p.mood !== moodFilter) return false;
-      return true;
-    });
-  }, [songs, categoryFilter, moodFilter]);
 
   return (
     <section className="py-24">
       <div className="container">
-        <div className="mb-12 text-center">
-          <h1 className="font-display text-4xl font-bold md:text-5xl">Мои песни</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground md:text-lg">
-            Слушайте мои релизы и выбирайте любимые композиции
-          </p>
-        </div>
+        <div className="mx-auto w-full max-w-6xl">
+          {/* Блоки 1+2: заголовки и оба альбома в одном ряду на desktop */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={0}
+            className="mb-24"
+            onClick={musicBurst}
+          >
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 lg:items-start">
+              {/* Колонка: MELANØ + альбом «Без свидетелей» */}
+              <div className="min-w-0">
+                <h1 className="font-display text-4xl font-bold tracking-[0.12em] md:text-5xl">{catalogMelanoNew.heading}</h1>
+                <p className="mt-3 text-muted-foreground md:text-lg">{catalogMelanoNew.subtitle}</p>
 
-        <div className="mb-10 space-y-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground" />
-            <span className="mr-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Жанр:</span>
-            <button
-              type="button"
-              onClick={() => setCategoryFilter('all')}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${categoryFilter === 'all' ? 'bg-primary text-primary-foreground' : 'border border-border/50 text-muted-foreground hover:border-primary hover:text-primary'}`}
-            >
-              Все
-            </button>
-            {categoriesInSongs.map(c => (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setCategoryFilter(c)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${categoryFilter === c ? 'bg-primary text-primary-foreground' : 'border border-border/50 text-muted-foreground hover:border-primary hover:text-primary'}`}
-              >
-                {categoryLabels[c]}
-              </button>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-2 ml-6 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Настроение:</span>
-            <button
-              type="button"
-              onClick={() => setMoodFilter('all')}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${moodFilter === 'all' ? 'bg-primary text-primary-foreground' : 'border border-border/50 text-muted-foreground hover:border-primary hover:text-primary'}`}
-            >
-              Все
-            </button>
-            {moodsInSongs.map(m => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => setMoodFilter(m)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${moodFilter === m ? 'bg-primary text-primary-foreground' : 'border border-border/50 text-muted-foreground hover:border-primary hover:text-primary'}`}
-              >
-                {moodLabels[m]}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={i}
-              className="group interactive-card relative overflow-hidden"
-              onClick={musicBurst}
-            >
-              <div className="relative h-52 overflow-hidden sm:h-56">
-                {p.coverImage ? (
-                  <img src={p.coverImage} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy" />
-                ) : (
-                  <div className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${p.coverGradient}`}>
-                    <Music className="h-12 w-12 text-primary/35" />
+                <article className="interactive-card mt-6 w-full max-w-full overflow-hidden p-0 lg:mt-8">
+                  <AlbumCoverSquare src={catalogMelanoNew.album.coverSrc} alt={catalogMelanoNew.album.title} />
+                  <div className="border-t border-border/25 bg-card/90 px-4 py-5">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <h2 className="font-display text-xl font-bold leading-tight md:text-2xl">{catalogMelanoNew.album.title}</h2>
+                      <span className="shrink-0 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                        {catalogMelanoNew.album.status}
+                      </span>
+                    </div>
+                    <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Треклист</p>
+                    <ol className="mt-2 list-decimal space-y-1 pl-4 text-sm leading-snug text-muted-foreground">
+                      {catalogMelanoNew.album.tracks.map(t => (
+                        <li key={t}>{t}</li>
+                      ))}
+                    </ol>
                   </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-transparent to-transparent opacity-90" />
+                </article>
               </div>
-              <div className="p-6">
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                    Песня
-                  </span>
-                  {p.mood != null && (
-                    <span className="rounded-full border border-border/50 px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                      {moodLabels[p.mood]}
-                    </span>
-                  )}
-                </div>
-                <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground line-clamp-2">{p.description}</p>
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                  {p.price > 0 ? (
-                    <span className="font-display text-xl font-bold text-primary">{p.price.toLocaleString('ru-RU')} ₽</span>
-                  ) : (
-                    <span className="text-sm text-muted-foreground">Слушать</span>
-                  )}
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/product/${p.id}`}
-                      className="rounded-lg border border-border/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                    >
-                      Подробнее
-                    </Link>
-                    {p.price > 0 && (
-                      <button
-                        type="button"
-                        onClick={() => addItem(p)}
-                        className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-                      >
-                        В корзину
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {filtered.length === 0 && (
-          <div className="py-20 text-center text-muted-foreground">
-            <Music className="mx-auto mb-4 h-12 w-12 text-muted-foreground/30" />
-            <p>Ничего не найдено. Попробуйте изменить фильтры.</p>
-          </div>
-        )}
+              {/* Колонка: Ранее выпущено + альбом «Весна между строк» */}
+              <div className="min-w-0">
+                <h2 className="font-display text-3xl font-bold md:text-4xl">{catalogPrevious.heading}</h2>
+                <p className="mt-3 text-muted-foreground md:text-lg">{catalogPrevious.subtitle}</p>
+
+                <article className="interactive-card mt-6 w-full max-w-full overflow-hidden p-0 lg:mt-8">
+                  <AlbumCoverSquare src={catalogPrevious.album.coverSrc} alt={catalogPrevious.album.title} />
+                  <div className="border-t border-border/25 bg-card/90 px-4 py-5">
+                    <h3 className="font-display text-xl font-bold leading-tight md:text-2xl">{catalogPrevious.album.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">Альбом</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            {/* Синглы — без изменений логики сетки */}
+            <div className="mt-12 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+              {catalogPreviousSingles.map((single, i) => (
+                <motion.article
+                  key={single.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
+                  className="interactive-card w-full overflow-hidden p-0"
+                  onClick={musicBurst}
+                >
+                  <CatalogCover src={single.coverSrc} alt={single.title} />
+                  <div className="border-t border-border/20 bg-card/80 px-5 py-5 md:px-6 md:py-6">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Сингл</p>
+                    <h4 className="mt-1 font-display text-lg font-semibold md:text-xl">{single.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{single.description}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Блок 3 — Песни на заказ */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}>
+            <h2 className="font-display text-3xl font-bold md:text-4xl">Песни на заказ / клиентские работы</h2>
+            <p className="mt-3 max-w-3xl text-muted-foreground md:text-lg">
+              Примеры выполненных песен для клиентов
+            </p>
+
+            <div className="mt-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+              {catalogClientWorks.map((work, i) => (
+                <motion.article
+                  key={work.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
+                  className="interactive-card w-full overflow-hidden p-0"
+                  onClick={musicBurst}
+                >
+                  <CatalogCover src={work.coverSrc} alt={work.title} />
+                  <div className="border-t border-border/20 bg-card/80 px-5 py-5 md:px-6 md:py-6">
+                    <h3 className="font-display text-xl font-semibold">{work.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{work.description}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
