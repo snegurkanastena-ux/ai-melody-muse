@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { Send, Mail, CheckCircle, FileText } from 'lucide-react';
+import LeadFormModal from '@/components/LeadFormModal';
 
 const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [leadFormOpen, setLeadFormOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const { name, email, message: text } = form;
-    const phone = "";
+    const phone = '';
     const message = `Email: ${email}\n\n${text}`;
 
     try {
-      const res = await fetch("/api/send-order", {
-        method: "POST",
+      const res = await fetch('/api/send-order', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name,
@@ -25,7 +28,7 @@ const Contact: React.FC = () => {
       });
 
       if (!res.ok) {
-        console.error("send-order failed", await res.text());
+        console.error('send-order failed', await res.text());
         return;
       }
 
@@ -34,7 +37,6 @@ const Contact: React.FC = () => {
       console.error(error);
     }
   };
-
   return (
     <section className="py-24">
       <div className="container">
@@ -46,11 +48,15 @@ const Contact: React.FC = () => {
 
         <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
           <div className="space-y-6">
-            <a href="mailto:info.melanomusic@gmail.com" className="interactive-card block p-6">
+            <button
+              type="button"
+              onClick={() => setLeadFormOpen(true)}
+              className="interactive-card block w-full p-6 text-left"
+            >
               <Mail className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Email</h3>
               <p className="mt-1 text-sm text-muted-foreground">info.melanomusic@gmail.com</p>
-            </a>
+            </button>
             <a href="https://t.me/melano_sounds" target="_blank" rel="noopener noreferrer" className="interactive-card block p-6">
               <Send className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Telegram</h3>
@@ -89,6 +95,7 @@ const Contact: React.FC = () => {
           </div>
         </div>
       </div>
+      <LeadFormModal open={leadFormOpen} onClose={() => setLeadFormOpen(false)} />
     </section>
   );
 };
