@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Music, Sparkles, Heart, Mic, Star, ArrowRight, CheckCircle2, Quote } from 'lucide-react';
-import { products } from '@/data/products';
-import { useCart } from '@/contexts/CartContext';
-import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const fadeUp = {
@@ -13,10 +10,6 @@ const fadeUp = {
 };
 
 const Index: React.FC = () => {
-  const { addItem } = useCart();
-  const musicBurst = useMusicNoteBurst();
-  const featured = products.filter(p => p.type === 'song').slice(0, 6);
-
   return (
     <>
       {/* Hero */}
@@ -135,74 +128,6 @@ const Index: React.FC = () => {
                 <p className="text-sm leading-relaxed text-secondary-foreground">{text}</p>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured products */}
-      <section className="border-t border-border/30 py-24">
-        <div className="container">
-          <div className="mb-12 flex items-end justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Плейлист</p>
-              <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Мои песни</h2>
-            </div>
-            <Link to="/catalog" className="hidden items-center gap-2 text-sm font-medium text-primary hover:text-rose-glow md:flex">
-              Все треки <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-                className="group interactive-card relative overflow-hidden"
-                onClick={musicBurst}
-              >
-                <div className="relative h-48 overflow-hidden">
-                  {p.coverImage ? (
-                    <img src={p.coverImage} alt="" className="h-full w-full object-cover transition-opacity group-hover:opacity-95" loading="lazy" />
-                  ) : (
-                    <div className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${p.coverGradient}`}>
-                      <Music className="h-12 w-12 text-primary/40 transition-opacity group-hover:opacity-90" />
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                      Песня
-                    </span>
-                  </div>
-                  <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground line-clamp-2">{p.description}</p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="font-display text-xl font-bold text-primary">{p.price.toLocaleString('ru-RU')} ₽</span>
-                    <div className="flex gap-2">
-                      <Link
-                        to={`/product/${p.id}`}
-                        className="rounded-lg border border-border/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                      >
-                        Подробнее
-                      </Link>
-                      <button
-                        onClick={() => addItem(p)}
-                        className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-                      >
-                        В корзину
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-8 text-center md:hidden">
-            <Link to="/catalog" className="inline-flex items-center gap-2 text-sm font-medium text-primary">Все треки <ArrowRight className="h-4 w-4" /></Link>
           </div>
         </div>
       </section>

@@ -38,7 +38,7 @@ const ProductDetail: React.FC = () => {
   const similar = (similarRanked.length > 0 ? similarRanked : sameTypeOthers).slice(0, 3);
 
   const backTo = product.type === 'service' ? '/services' : '/catalog';
-  const backLabel = product.type === 'service' ? 'Услуги' : 'Мои песни';
+  const backLabel = product.type === 'service' ? 'Услуги' : 'Каталог';
 
   const coverSrc = resolveProductCoverSrc(product.id, product.coverImage);
 
