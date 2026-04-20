@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
-import { Trash2, Plus, Minus, ShoppingCart, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Trash2, Plus, Minus, ShoppingCart, ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react';
+
+const PAYFORM_URL = 'https://neuroera.payform.ru/';
 
 const Cart: React.FC = () => {
   const { items, removeItem, updateQuantity, totalPrice } = useCart();
@@ -13,8 +15,8 @@ const Cart: React.FC = () => {
           <ShoppingCart className="mx-auto mb-4 h-16 w-16 text-muted-foreground/20" />
           <h1 className="font-display text-2xl font-bold">Корзина пуста</h1>
           <p className="mt-2 text-muted-foreground">Добавьте песню или услугу из каталога</p>
-          <Link to="/catalog" className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">
-            Перейти в каталог <ArrowRight className="h-4 w-4" />
+          <Link to="/services" className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">
+            Перейти к услугам <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -71,9 +73,35 @@ const Cart: React.FC = () => {
               <span className="font-display text-lg font-bold">Сумма:</span>
               <span className="font-display text-lg font-bold text-primary">{totalPrice.toLocaleString('ru-RU')} ₽</span>
             </div>
-            <Link to="/checkout" className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 font-medium text-primary-foreground transition-all hover:box-glow">
-              Оформить заявку <ArrowRight className="h-4 w-4" />
-            </Link>
+            <div className="mt-6 flex flex-col gap-3">
+              <a
+                href={PAYFORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3 font-medium text-primary-foreground transition-all hover:box-glow"
+              >
+                Оплатить сразу <ExternalLink className="h-4 w-4" />
+              </a>
+              <Link
+                to="/checkout"
+                className="flex w-full items-center justify-center gap-2 rounded-full border border-border/50 py-3 font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                Отправить заявку <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-8 border-t border-border/30 pt-6">
+              <div className="mx-auto flex max-w-[220px] flex-col items-center rounded-2xl border border-border/40 bg-background/80 p-4">
+                <img
+                  src="/payment-qr.png"
+                  alt="QR-код для оплаты"
+                  width={200}
+                  height={200}
+                  className="h-[200px] w-[200px] max-h-[200px] max-w-[200px] object-contain"
+                  decoding="async"
+                />
+              </div>
+              <p className="mt-4 text-center text-sm text-muted-foreground">Можно оплатить по QR-коду</p>
+            </div>
           </div>
         </div>
       </div>
