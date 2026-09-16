@@ -41,6 +41,24 @@ export const melanoAlbumTracks: CatalogPlayableTrack[] = [
     audioSrc: '/audio/albums/bez-svideteley/slishkom-vzroslaya.mp3',
     coverSrc: COVERS.bezSvideteley,
   },
+  {
+    id: 'melano-piter-nas-ne-otpustit',
+    title: 'Питер нас не отпустит',
+    audioSrc: '/audio/albums/bez-svideteley/piter-nas-ne-otpustit.mp3',
+    coverSrc: COVERS.bezSvideteley,
+  },
+  {
+    id: 'melano-moi-berezniki',
+    title: 'Мои Березники',
+    audioSrc: '/audio/albums/bez-svideteley/moi-berezniki.wav',
+    coverSrc: COVERS.bezSvideteley,
+  },
+  {
+    id: 'melano-3-sentyabrya',
+    title: '3 сентября',
+    audioSrc: '/audio/albums/bez-svideteley/3-sentyabrya.wav',
+    coverSrc: COVERS.bezSvideteley,
+  },
 ];
 
 /** Блок 1 — MELANØ, новый проект */

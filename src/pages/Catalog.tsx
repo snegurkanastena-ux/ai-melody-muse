@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useMusicNoteBurst } from '@/hooks/useMusicNoteBurst';
 import { CatalogAudioProvider } from '@/contexts/CatalogAudioContext';
 import { CatalogAlbumBlock } from '@/components/catalog/CatalogAlbumBlock';
@@ -56,6 +57,21 @@ function CatalogInner() {
                     statusLabel={catalogMelanoNew.album.status}
                   />
                 </div>
+                <a
+                  href="https://band.link/9ckEn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 flex items-center justify-between gap-4 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-left transition-all hover:border-primary/60 hover:bg-primary/15"
+                >
+                  <span>
+                    <span className="block text-xs font-semibold uppercase tracking-[0.22em] text-primary">Пресейв</span>
+                    <span className="mt-1 block font-display text-lg font-semibold text-foreground">«Без свидетелей» на Bandlink</span>
+                    <span className="mt-1 block text-sm leading-snug text-muted-foreground">
+                      Сохраните релиз заранее, чтобы он появился в ваших стримингах в день выхода.
+                    </span>
+                  </span>
+                  <ArrowRight className="h-5 w-5 shrink-0 text-primary" />
+                </a>
               </div>
 
               <div className="min-w-0">

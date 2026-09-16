@@ -161,7 +161,7 @@ export const Footer: React.FC = () => {
 </a>
           </div>
           <div className="mt-4 flex gap-3">
-            <a href="#" className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:border-primary hover:text-primary" aria-label="Telegram">
+            <a href="https://t.me/melano_sounds" target="_blank" rel="noopener noreferrer" className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:border-primary hover:text-primary" aria-label="Telegram">
               <Send className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -172,6 +172,7 @@ export const Footer: React.FC = () => {
         <p className="text-xs text-muted-foreground">© 2026 NeuroEra by Anastasia Melnikova</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link to="/checkout" onClick={e => samePathScrollToTop(e, location.pathname, '/checkout')} className="text-xs text-muted-foreground transition-colors hover:text-primary">Оплата</Link>
+          <a href="https://band.link/9ckEn" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground transition-colors hover:text-primary">Пресейв</a>
           <Link to="/offer" onClick={e => samePathScrollToTop(e, location.pathname, '/offer')} className="text-xs text-muted-foreground transition-colors hover:text-primary">Оферта</Link>
           <Link to="/contact" onClick={e => samePathScrollToTop(e, location.pathname, '/contact')} className="text-xs text-muted-foreground transition-colors hover:text-primary">Контакты</Link>
         </div>

@@ -1,0 +1,5 @@
+.npm-cache
+.codex-git-objects
+.codex-temp-index-*
+node_modules
+dist
