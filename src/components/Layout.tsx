@@ -45,6 +45,17 @@ export const Header: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3">
+          <a
+            href="https://t.me/melano_sounds"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:border-primary hover:text-primary sm:flex"
+            aria-label="Telegram-канал MELANØ"
+            title="Telegram"
+          >
+            <Send className="h-4 w-4" />
+          </a>
+
           <Link
             to="/cart"
             onClick={e => samePathScrollToTop(e, location.pathname, '/cart')}
@@ -98,6 +109,18 @@ export const Header: React.FC = () => {
                   {l.label}
                 </Link>
               ))}
+              <div className="mt-2">
+                <a
+                  href="https://t.me/melano_sounds"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-lg border border-border/50 px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                >
+                  <Send className="h-4 w-4" />
+                  Telegram
+                </a>
+              </div>
               <Link
                 to="/checkout"
                 onClick={e => {
@@ -172,7 +195,6 @@ export const Footer: React.FC = () => {
         <p className="text-xs text-muted-foreground">© 2026 NeuroEra by Anastasia Melnikova</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link to="/checkout" onClick={e => samePathScrollToTop(e, location.pathname, '/checkout')} className="text-xs text-muted-foreground transition-colors hover:text-primary">Оплата</Link>
-          <a href="https://band.link/9ckEn" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground transition-colors hover:text-primary">Пресейв</a>
           <Link to="/offer" onClick={e => samePathScrollToTop(e, location.pathname, '/offer')} className="text-xs text-muted-foreground transition-colors hover:text-primary">Оферта</Link>
           <Link to="/contact" onClick={e => samePathScrollToTop(e, location.pathname, '/contact')} className="text-xs text-muted-foreground transition-colors hover:text-primary">Контакты</Link>
         </div>

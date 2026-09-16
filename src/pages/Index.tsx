@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Music, Sparkles, Heart, Mic, Star, ArrowRight, CheckCircle2, Quote, Send } from 'lucide-react';
+import { Music, Sparkles, Heart, Mic, Star, ArrowRight, CheckCircle2, Quote } from 'lucide-react';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const fadeUp = {
@@ -45,22 +45,6 @@ const Index: React.FC = () => {
               >
                 <Sparkles className="h-4 w-4" /> Заказать свою песню
               </Link>
-              <a
-                href="https://band.link/9ckEn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-6 py-3 font-medium text-foreground transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
-              >
-                <ArrowRight className="h-4 w-4" /> Пресейв «Без свидетелей»
-              </a>
-              <a
-                href="https://t.me/melano_sounds"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-medium text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
-              >
-                <Send className="h-4 w-4" /> Telegram-канал
-              </a>
             </motion.div>
           </motion.div>
         </div>

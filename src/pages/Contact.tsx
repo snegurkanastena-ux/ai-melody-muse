@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Mail, CheckCircle, FileText } from 'lucide-react';
+import { Send, Mail, CheckCircle, FileText, Headphones } from 'lucide-react';
 import LeadFormModal from '@/components/LeadFormModal';
 
 const Contact: React.FC = () => {
@@ -61,6 +61,11 @@ const Contact: React.FC = () => {
               <Send className="mb-3 h-6 w-6 text-primary" />
               <h3 className="font-display font-semibold">Telegram</h3>
               <p className="mt-1 text-sm text-muted-foreground">@melano_sounds</p>
+            </a>
+            <a href="https://band.link/9ckEn" target="_blank" rel="noopener noreferrer" className="interactive-card block p-6">
+              <Headphones className="mb-3 h-6 w-6 text-primary" />
+              <h3 className="font-display font-semibold">Новый релиз</h3>
+              <p className="mt-1 text-sm text-muted-foreground">«Без свидетелей» — открыть на музыкальной платформе</p>
             </a>
             <div className="rounded-2xl border border-border/30 bg-card/50 p-6">
               <div className="flex items-center gap-3">
