@@ -57,15 +57,15 @@ function CatalogInner() {
                     statusLabel={catalogMelanoNew.album.status}
                   />
                 </div>
-                <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                   <span>Новый релиз «Без свидетелей»</span>
                   <a
                     href="https://band.link/9ckEn"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-medium text-primary transition-colors hover:text-rose-glow"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
                   >
-                    Сохранить на музыкальной платформе
+                    Открыть релиз
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
